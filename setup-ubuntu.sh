@@ -7,22 +7,14 @@ sudo apt update
 sudo apt upgrade -y
 sudo apt install -y git zsh vim tmux curl
 
+if [ ! -d "$HOME/.vim/bundle/Vundle.vim" ]; then
+  git clone https://github.com/VundleVim/Vundle.vim.git "$HOME/.vim/bundle/Vundle.vim"
+fi
+
 if [ -f "$SCRIPT_DIR/.vimrc" ]; then
   cp "$SCRIPT_DIR/.vimrc" "$HOME/.vimrc"
 else
   echo "Missing $SCRIPT_DIR/.vimrc; download your .vimrc to $HOME/.vimrc"
-fi
-
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-if [ -f "$HOME/.zshrc" ]; then
-  if grep -q '^ZSH_THEME=' "$HOME/.zshrc"; then
-    sed -i 's/^ZSH_THEME=.*/ZSH_THEME="agnoster"/' "$HOME/.zshrc"
-  else
-    printf '\nZSH_THEME="agnoster"\n' >> "$HOME/.zshrc"
-  fi
-else
-  echo "Missing $HOME/.zshrc; set ZSH_THEME=\"agnoster\" manually"
 fi
 
 if command -v vim >/dev/null 2>&1; then
@@ -56,4 +48,16 @@ if command -v tmux >/dev/null 2>&1; then
   fi
 else
   echo "Reminder: run tmux, then press prefix + I to install plugins"
+fi
+
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+if [ -f "$HOME/.zshrc" ]; then
+  if grep -q '^ZSH_THEME=' "$HOME/.zshrc"; then
+    sed -i 's/^ZSH_THEME=.*/ZSH_THEME="agnoster"/' "$HOME/.zshrc"
+  else
+    printf '\nZSH_THEME="agnoster"\n' >> "$HOME/.zshrc"
+  fi
+else
+  echo "Missing $HOME/.zshrc; set ZSH_THEME=\"agnoster\" manually"
 fi
