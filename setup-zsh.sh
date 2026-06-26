@@ -9,7 +9,7 @@ if [ -f "$HOME/.zshrc" ]; then
   if grep -q '^ZSH_THEME=' "$HOME/.zshrc"; then
     sed -i 's/^ZSH_THEME=.*/ZSH_THEME="agnoster"/' "$HOME/.zshrc"
   else
-    printf '\nZSH_THEME="agnoster"\n' >> "$HOME/.zshrc"
+    printf '\nZSH_THEME="agnoster"\n' >>"$HOME/.zshrc"
   fi
 else
   echo "Missing $HOME/.zshrc; set ZSH_THEME=\"agnoster\" manually"
